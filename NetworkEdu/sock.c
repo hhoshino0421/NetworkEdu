@@ -148,7 +148,25 @@ int GetMacAddress(char *device, u_int8_t *hwaddr) {
 
     } else {
 
+        p = (u_int8_t *)&ifreq.ifr_hwaddr.sa_data;
+        memcpy(hwaddr, p, 6);
+        close(soc);
+
+        return 1;
+
     }
 
+}
+
+int DummyWait(int ms) {
+
+    struct timespec     ts;
+
+    ts.tv_sec   = 0;
+    ts.tv_nsec  = ms * 1000 * 1000;
+
+    nanosleep(&ts,NULL);
+
+    return PROCESS_RESULT_SUCCESS;
 
 }
