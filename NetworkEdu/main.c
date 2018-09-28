@@ -18,6 +18,7 @@
 #include "icmp.h"
 #include "param.h"
 #include "cmd.h"
+#include "Common.h"
 
 
 /* 終了フラグ */
@@ -27,13 +28,17 @@ int DeviceSoc;
 /* 設定を保持 */
 PARAM   Param;
 
+const int BUFFER_SIZE_1     = 2048;
+const int BUFFER_SIZE_1_1   = 80;
+const int STACK_SIZE        = 102400;
+const int POOL_COUNT_MAX    = 1000;
 
 
 void *MyEthThread(void *arg) {
 
     int             nready;
     struct pollfd   targets[1];
-    u_int8_t        buf[2048];
+    u_int8_t        buf[BUFFER_SIZE_1];
     int             len;
 
     targets[0].fd       = DeviceSoc;
@@ -41,7 +46,7 @@ void *MyEthThread(void *arg) {
 
     while(EndFlag == 0) {
 
-        switch((nready=poll(targets,1,1000))) {
+        switch((nready = poll(targets, 1, POOL_COUNT_MAX))) {
             case -1: {
                 if (errno != EINTR) {
                     perror("poll");
@@ -74,13 +79,13 @@ void *StdInThread(void *arg) {
 
     int                 nready;
     struct  pollfd      targets[1];
-    char                buf[2048];
+    char                buf[BUFFER_SIZE_1];
 
     targets[0].fd       = fileno(stdin);
     targets[0].events   = POLLIN | POLLERR;
 
     while(EndFlag == 0) {
-        switch((nready=poll(targets,1,1000))) {
+        switch((nready = poll(targets, 1, POOL_COUNT_MAX))) {
             case -1:{
                 if(errno!=EINTR) {
                     perror("poll");
@@ -91,7 +96,7 @@ void *StdInThread(void *arg) {
                 break;
             }
             default: {
-                if(targets[0].revents&(POLLIN|POLLERR)) {
+                if(targets[0].revents&(POLLIN | POLLERR)) {
                     fgets(buf,sizeof(buf),stdin);
                     DoCmd(buf);
                 }
@@ -119,7 +124,7 @@ int ending() {
     if (DeviceSoc != -1) {
 
         strcpy(if_req.ifr_name, Param.device);
-        if (ioctl(DeviceSoc,SIOCGIFFLAGS,&if_req)<0) {
+        if (ioctl(DeviceSoc, SIOCGIFFLAGS, &if_req)<0) {
             perror("ioctl");
         }
 
@@ -137,14 +142,14 @@ int ending() {
 }
 
 int show_ifreq(char *name) {
-    char    buf1[80];
+    char    buf1[BUFFER_SIZE_1_1];
     int     soc;
     struct  ifreq           ifreq;
     struct  sockaddr_in     addr;
 
     if((soc == socket(AF_INET,SOCK_DGRAM, 0)) == -1) {
         perror("socket");
-        return(-1);
+        return(PROCESS_RESULT_ERROR);
     }
 
     strcpy(ifreq.ifr_name,name);
@@ -152,7 +157,7 @@ int show_ifreq(char *name) {
     if(ioctl(soc, SIOCGIFFLAGS, &ifreq) == -1) {
         perror("ioctl:flags");
         close(soc);
-        return(-1);
+        return(PROCESS_RESULT_ERROR);
     }
 
     if (ifreq.ifr_flags & IFF_UP) {
@@ -189,25 +194,25 @@ int show_ifreq(char *name) {
         printf("not AF_INET\n");
     } else {
         memcpy(&addr, &ifreq.ifr_addr, sizeof(struct sockaddr_in));
-        printf("myip=%s\n", inet_ntop(AF_INET,&addr.sin_addr,buf1,sizeof(buf1)));
+        printf("myip=%s\n", inet_ntop(AF_INET, &addr.sin_addr, buf1, sizeof(buf1)));
         Param.myip = addr.sin_addr;
     }
 
     close(soc);
 
-    if (GetMacAddress(name,Param.mymac) == -1) {
+    if (GetMacAddress(name, Param.mymac) == -1) {
         printf("GetMacAdress:error");
     } else {
-        printf("mymac:%s\n", my_ether_ntoa_r(Param.mymac,buf1));
+        printf("mymac:%s\n", my_ether_ntoa_r(Param.mymac, buf1));
     }
 
-    return(0);
+    return PROCESS_RESULT_SUCCESS;
 
 }
 
 int main(int argc, char *argv[]) {
 
-    char            buf1[80];
+    char            buf1[BUFFER_SIZE_1_1];
     int             i, paramFlag;
     pthread_attr_t  attr;
     pthread_t       thread_id;
@@ -262,7 +267,7 @@ int main(int argc, char *argv[]) {
     signal(SIGPIPE, SIG_IGN);
 
     pthread_attr_init(&attr);
-    pthread_attr_setstacksize(&attr, 102400);
+    pthread_attr_setstacksize(&attr, STACK_SIZE);
 
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
 
@@ -270,7 +275,7 @@ int main(int argc, char *argv[]) {
         printf("pthread_create(MyEthThread):error\n");
     }
 
-    if (pthread_create(&thread_id,&attr,StdInThread,NULL) != 0) {
+    if (pthread_create(&thread_id, &attr, StdInThread,NULL) != 0) {
         printf("pthread_create(StdInThread):error\n");
     }
 
@@ -285,5 +290,5 @@ int main(int argc, char *argv[]) {
 
     ending();
     
-    return 0;
+    return PROCESS_RESULT_SUCCESS;
 }

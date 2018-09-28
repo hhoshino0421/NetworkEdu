@@ -4,7 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/hhoshino/develop/Clion_workspace/NetworkEdu/main.c" "/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles/NetworkEdu.dir/main.c.o"
+  "/home/hhoshino/develop/clion_workspace/NetworkEdu/main.c" "/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles/NetworkEdu.dir/main.c.o"
+  "/home/hhoshino/develop/clion_workspace/NetworkEdu/param.c" "/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles/NetworkEdu.dir/param.c.o"
+  "/home/hhoshino/develop/clion_workspace/NetworkEdu/sock.c" "/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles/NetworkEdu.dir/sock.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

@@ -43,10 +43,10 @@ RM = /home/hhoshino/IDE/clion-2018.2.4/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hhoshino/develop/Clion_workspace/NetworkEdu
+CMAKE_SOURCE_DIR = /home/hhoshino/develop/clion_workspace/NetworkEdu
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug
+CMAKE_BINARY_DIR = /home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/NetworkEdu.dir/depend.make
@@ -59,28 +59,58 @@ include CMakeFiles/NetworkEdu.dir/flags.make
 
 CMakeFiles/NetworkEdu.dir/main.c.o: CMakeFiles/NetworkEdu.dir/flags.make
 CMakeFiles/NetworkEdu.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/NetworkEdu.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/NetworkEdu.dir/main.c.o   -c /home/hhoshino/develop/Clion_workspace/NetworkEdu/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/NetworkEdu.dir/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/NetworkEdu.dir/main.c.o   -c /home/hhoshino/develop/clion_workspace/NetworkEdu/main.c
 
 CMakeFiles/NetworkEdu.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/NetworkEdu.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/hhoshino/develop/Clion_workspace/NetworkEdu/main.c > CMakeFiles/NetworkEdu.dir/main.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/hhoshino/develop/clion_workspace/NetworkEdu/main.c > CMakeFiles/NetworkEdu.dir/main.c.i
 
 CMakeFiles/NetworkEdu.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/NetworkEdu.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/hhoshino/develop/Clion_workspace/NetworkEdu/main.c -o CMakeFiles/NetworkEdu.dir/main.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/hhoshino/develop/clion_workspace/NetworkEdu/main.c -o CMakeFiles/NetworkEdu.dir/main.c.s
+
+CMakeFiles/NetworkEdu.dir/param.c.o: CMakeFiles/NetworkEdu.dir/flags.make
+CMakeFiles/NetworkEdu.dir/param.c.o: ../param.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/NetworkEdu.dir/param.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/NetworkEdu.dir/param.c.o   -c /home/hhoshino/develop/clion_workspace/NetworkEdu/param.c
+
+CMakeFiles/NetworkEdu.dir/param.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/NetworkEdu.dir/param.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/hhoshino/develop/clion_workspace/NetworkEdu/param.c > CMakeFiles/NetworkEdu.dir/param.c.i
+
+CMakeFiles/NetworkEdu.dir/param.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/NetworkEdu.dir/param.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/hhoshino/develop/clion_workspace/NetworkEdu/param.c -o CMakeFiles/NetworkEdu.dir/param.c.s
+
+CMakeFiles/NetworkEdu.dir/sock.c.o: CMakeFiles/NetworkEdu.dir/flags.make
+CMakeFiles/NetworkEdu.dir/sock.c.o: ../sock.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/NetworkEdu.dir/sock.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/NetworkEdu.dir/sock.c.o   -c /home/hhoshino/develop/clion_workspace/NetworkEdu/sock.c
+
+CMakeFiles/NetworkEdu.dir/sock.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/NetworkEdu.dir/sock.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/hhoshino/develop/clion_workspace/NetworkEdu/sock.c > CMakeFiles/NetworkEdu.dir/sock.c.i
+
+CMakeFiles/NetworkEdu.dir/sock.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/NetworkEdu.dir/sock.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/hhoshino/develop/clion_workspace/NetworkEdu/sock.c -o CMakeFiles/NetworkEdu.dir/sock.c.s
 
 # Object files for target NetworkEdu
 NetworkEdu_OBJECTS = \
-"CMakeFiles/NetworkEdu.dir/main.c.o"
+"CMakeFiles/NetworkEdu.dir/main.c.o" \
+"CMakeFiles/NetworkEdu.dir/param.c.o" \
+"CMakeFiles/NetworkEdu.dir/sock.c.o"
 
 # External object files for target NetworkEdu
 NetworkEdu_EXTERNAL_OBJECTS =
 
 NetworkEdu: CMakeFiles/NetworkEdu.dir/main.c.o
+NetworkEdu: CMakeFiles/NetworkEdu.dir/param.c.o
+NetworkEdu: CMakeFiles/NetworkEdu.dir/sock.c.o
 NetworkEdu: CMakeFiles/NetworkEdu.dir/build.make
 NetworkEdu: CMakeFiles/NetworkEdu.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable NetworkEdu"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable NetworkEdu"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/NetworkEdu.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -93,6 +123,6 @@ CMakeFiles/NetworkEdu.dir/clean:
 .PHONY : CMakeFiles/NetworkEdu.dir/clean
 
 CMakeFiles/NetworkEdu.dir/depend:
-	cd /home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hhoshino/develop/Clion_workspace/NetworkEdu /home/hhoshino/develop/Clion_workspace/NetworkEdu /home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug /home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug /home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles/NetworkEdu.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hhoshino/develop/clion_workspace/NetworkEdu /home/hhoshino/develop/clion_workspace/NetworkEdu /home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug /home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug /home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles/NetworkEdu.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/NetworkEdu.dir/depend
 

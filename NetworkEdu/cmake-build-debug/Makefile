@@ -48,10 +48,10 @@ RM = /home/hhoshino/IDE/clion-2018.2.4/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hhoshino/develop/Clion_workspace/NetworkEdu
+CMAKE_SOURCE_DIR = /home/hhoshino/develop/clion_workspace/NetworkEdu
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug
+CMAKE_BINARY_DIR = /home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles /home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles /home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -150,6 +150,60 @@ main.c.s:
 	$(MAKE) -f CMakeFiles/NetworkEdu.dir/build.make CMakeFiles/NetworkEdu.dir/main.c.s
 .PHONY : main.c.s
 
+param.o: param.c.o
+
+.PHONY : param.o
+
+# target to build an object file
+param.c.o:
+	$(MAKE) -f CMakeFiles/NetworkEdu.dir/build.make CMakeFiles/NetworkEdu.dir/param.c.o
+.PHONY : param.c.o
+
+param.i: param.c.i
+
+.PHONY : param.i
+
+# target to preprocess a source file
+param.c.i:
+	$(MAKE) -f CMakeFiles/NetworkEdu.dir/build.make CMakeFiles/NetworkEdu.dir/param.c.i
+.PHONY : param.c.i
+
+param.s: param.c.s
+
+.PHONY : param.s
+
+# target to generate assembly for a file
+param.c.s:
+	$(MAKE) -f CMakeFiles/NetworkEdu.dir/build.make CMakeFiles/NetworkEdu.dir/param.c.s
+.PHONY : param.c.s
+
+sock.o: sock.c.o
+
+.PHONY : sock.o
+
+# target to build an object file
+sock.c.o:
+	$(MAKE) -f CMakeFiles/NetworkEdu.dir/build.make CMakeFiles/NetworkEdu.dir/sock.c.o
+.PHONY : sock.c.o
+
+sock.i: sock.c.i
+
+.PHONY : sock.i
+
+# target to preprocess a source file
+sock.c.i:
+	$(MAKE) -f CMakeFiles/NetworkEdu.dir/build.make CMakeFiles/NetworkEdu.dir/sock.c.i
+.PHONY : sock.c.i
+
+sock.s: sock.c.s
+
+.PHONY : sock.s
+
+# target to generate assembly for a file
+sock.c.s:
+	$(MAKE) -f CMakeFiles/NetworkEdu.dir/build.make CMakeFiles/NetworkEdu.dir/sock.c.s
+.PHONY : sock.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +216,12 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... param.o"
+	@echo "... param.i"
+	@echo "... param.s"
+	@echo "... sock.o"
+	@echo "... sock.i"
+	@echo "... sock.s"
 .PHONY : help
 
 
