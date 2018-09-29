@@ -47,16 +47,20 @@ void *MyEthThread(void *arg) {
     while(EndFlag == 0) {
 
         switch((nready = poll(targets, 1, POOL_COUNT_MAX))) {
+
             case -1: {
                 if (errno != EINTR) {
                     perror("poll");
                 }
                 break;
             }
+
             case 0: {
                 break;
             }
+
             default: {
+
                 if (targets[0].revents&(POLLIN|POLLERR)) {
                     if((len=read(DeviceSoc, buf, sizeof(buf))) <= 0){
                         perror("read");
@@ -64,6 +68,7 @@ void *MyEthThread(void *arg) {
                         EtherRecv(DeviceSoc, buf, len);
                     }
                 }
+
                 break;
             }
 
@@ -85,24 +90,32 @@ void *StdInThread(void *arg) {
     targets[0].events   = POLLIN | POLLERR;
 
     while(EndFlag == 0) {
+
         switch((nready = poll(targets, 1, POOL_COUNT_MAX))) {
+
             case -1:{
                 if(errno!=EINTR) {
                     perror("poll");
                 }
                 break;
             }
+
             case 0: {
                 break;
             }
+
             default: {
+
                 if(targets[0].revents&(POLLIN | POLLERR)) {
                     fgets(buf,sizeof(buf),stdin);
                     DoCmd(buf);
                 }
+
                 break;
             }
+
         }
+
     }
 
     return(NULL);
@@ -124,11 +137,13 @@ int ending() {
     if (DeviceSoc != -1) {
 
         strcpy(if_req.ifr_name, Param.device);
+
         if (ioctl(DeviceSoc, SIOCGIFFLAGS, &if_req)<0) {
             perror("ioctl");
         }
 
         if_req.ifr_flags = if_req.ifr_flags&~IFF_PROMISC;
+
         if (ioctl(DeviceSoc, SIOCGIFFLAGS, &if_req) < 0) {
             perror("ioctl");
         }
@@ -142,6 +157,7 @@ int ending() {
 }
 
 int show_ifreq(char *name) {
+
     char    buf1[BUFFER_SIZE_1_1];
     int     soc;
     struct  ifreq           ifreq;
@@ -189,13 +205,19 @@ int show_ifreq(char *name) {
     }
 
     if (ioctl(soc, SIOCGIFADDR,&ifreq) == -1) {
+
         perror("ioctl:addr");
+
     } else if (ifreq.ifr_addr.sa_family != AF_INET) {
+
         printf("not AF_INET\n");
+
     } else {
+
         memcpy(&addr, &ifreq.ifr_addr, sizeof(struct sockaddr_in));
         printf("myip=%s\n", inet_ntop(AF_INET, &addr.sin_addr, buf1, sizeof(buf1)));
         Param.myip = addr.sin_addr;
+        
     }
 
     close(soc);
