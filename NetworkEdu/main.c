@@ -217,7 +217,7 @@ int show_ifreq(char *name) {
         memcpy(&addr, &ifreq.ifr_addr, sizeof(struct sockaddr_in));
         printf("myip=%s\n", inet_ntop(AF_INET, &addr.sin_addr, buf1, sizeof(buf1)));
         Param.myip = addr.sin_addr;
-        
+
     }
 
     close(soc);

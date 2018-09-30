@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug"/>
+				<Option working_dir="/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug"/>
+				<Option working_dir="/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug"/>
+				<Option working_dir="/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="NetworkEdu">
-				<Option output="/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/NetworkEdu" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug"/>
+				<Option output="/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/NetworkEdu" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -54,15 +54,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 NetworkEdu"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 NetworkEdu"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="NetworkEdu/fast">
-				<Option output="/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/NetworkEdu" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug"/>
+				<Option output="/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/NetworkEdu" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -77,32 +77,38 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 NetworkEdu/fast"/>
-					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 NetworkEdu/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/hhoshino/develop/Clion_workspace/NetworkEdu/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/hhoshino/develop/clion_workspace/NetworkEdu/Common.h">
+		<Unit filename="/home/hhoshino/develop/Clion_workspace/NetworkEdu/Common.h">
 			<Option target="NetworkEdu"/>
 		</Unit>
-		<Unit filename="/home/hhoshino/develop/clion_workspace/NetworkEdu/main.c">
+		<Unit filename="/home/hhoshino/develop/Clion_workspace/NetworkEdu/ether.c">
 			<Option target="NetworkEdu"/>
 		</Unit>
-		<Unit filename="/home/hhoshino/develop/clion_workspace/NetworkEdu/param.c">
+		<Unit filename="/home/hhoshino/develop/Clion_workspace/NetworkEdu/ether.h">
 			<Option target="NetworkEdu"/>
 		</Unit>
-		<Unit filename="/home/hhoshino/develop/clion_workspace/NetworkEdu/param.h">
+		<Unit filename="/home/hhoshino/develop/Clion_workspace/NetworkEdu/main.c">
 			<Option target="NetworkEdu"/>
 		</Unit>
-		<Unit filename="/home/hhoshino/develop/clion_workspace/NetworkEdu/sock.c">
+		<Unit filename="/home/hhoshino/develop/Clion_workspace/NetworkEdu/param.c">
 			<Option target="NetworkEdu"/>
 		</Unit>
-		<Unit filename="/home/hhoshino/develop/clion_workspace/NetworkEdu/sock.h">
+		<Unit filename="/home/hhoshino/develop/Clion_workspace/NetworkEdu/param.h">
 			<Option target="NetworkEdu"/>
 		</Unit>
-		<Unit filename="/home/hhoshino/develop/clion_workspace/NetworkEdu/CMakeLists.txt">
+		<Unit filename="/home/hhoshino/develop/Clion_workspace/NetworkEdu/sock.c">
+			<Option target="NetworkEdu"/>
+		</Unit>
+		<Unit filename="/home/hhoshino/develop/Clion_workspace/NetworkEdu/sock.h">
+			<Option target="NetworkEdu"/>
+		</Unit>
+		<Unit filename="/home/hhoshino/develop/Clion_workspace/NetworkEdu/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

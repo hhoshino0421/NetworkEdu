@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/NetworkEdu.dir/main.c.o"
   "CMakeFiles/NetworkEdu.dir/param.c.o"
   "CMakeFiles/NetworkEdu.dir/sock.c.o"
+  "CMakeFiles/NetworkEdu.dir/ether.c.o"
   "NetworkEdu.pdb"
   "NetworkEdu"
 )

@@ -170,3 +170,62 @@ int DummyWait(int ms) {
     return PROCESS_RESULT_SUCCESS;
 
 }
+
+int init_socket(char *device) {
+
+    struct ifreq        if_req;
+    struct sockaddr_ll  sa;
+    int                 soc;
+
+    if ((soc == socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL))) < 0) {
+
+        perror("socket");
+        return PROCESS_RESULT_ERROR;
+
+    }
+
+    strcpy(if_req.ifr_name, device);
+
+    if (ioctl(soc,SIOCGIFINDEX,&if_req) < 0) {
+
+        perror("ioctl");
+        close(soc);
+        return  PROCESS_RESULT_ERROR;
+
+    }
+
+    sa.sll_family   = PF_PACKET;
+    sa.sll_protocol = htons(ETH_P_ALL);
+    sa.sll_ifindex  = if_req.ifr_ifindex;
+
+    if(bind(soc, (struct sockaddr *)&sa ,sizeof(sa)) < 0) {
+
+        perror("bind");
+        close(soc);
+        return PROCESS_RESULT_ERROR;
+
+    }
+
+    if(ioctl(soc, SIOCGIFFLAGS, &if_req) < 0) {
+
+        perror("ioctl");
+        close(soc);
+        return PROCESS_RESULT_ERROR;
+
+    }
+
+    if_req.ifr_flags = if_req.ifr_flags | IFF_PROMISC | IFF_UP;
+
+    if (ioctl(soc, SIOCSIFFLAGS, &if_req) < 0) {
+
+        if (ioctl(soc,SIOCSIFFLAGS,&if_req) < 0) {
+            perror("ioctl");
+            close(soc);
+            return PROCESS_RESULT_ERROR;
+        }
+
+    }
+
+    return soc;
+
+}
