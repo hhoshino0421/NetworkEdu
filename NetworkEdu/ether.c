@@ -196,5 +196,28 @@ int EthersSend(int soc, u_int8_t smac[6], u_int8_t dmac[6], u_int16_t type, u_in
 
     return PROCESS_RESULT_SUCCESS;
 
+}
+
+int EtherRecv(int soc, u_int8_t *in_ptr, int in_len) {
+
+    struct ether_header     *eh;
+    u_int8_t                *ptr = in_ptr;
+    int                     len  = in_len;
+
+    eh = (struct ether_header *)ptr;
+    ptr += sizeof(struct ether_header);
+    len -= sizeof(struct ether_header);
+
+    if (memcmp(eh->ether_dhost, BCastMac, 6) != 0 && memcmp(eh->ether_dhost, param.vmac, 6) != 0) {
+        return PROCESS_RESULT_ERROR;
+    }
+
+    if (ntohs(eh->ether_type) == ETHERTYPE_ARP) {
+        ArpRecv(soc, ptr, len);
+    } else if (ntohs(eh->ether_type) == ETHERTYPE_IP) {
+        IpRecv(soc, in_ptr, in_len, eh, ptr, len);
+    }
+
+    return PROCESS_RESULT_SUCCESS;
 
 }
