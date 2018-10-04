@@ -155,3 +155,99 @@ int IcmpSendEcho(int soc, struct in_addr *daddr, int seqNo, int size) {
     return PROCESS_RESULT_SUCCESS;
 
 }
+
+
+int PingSend(int soc, struct in_addr *daddr, int size) {
+
+    int     i;
+
+    for (i = 0; i < PING_SEND_NO; i++) {
+
+        IcmpSendEcho(soc,daddr,i+1,size);
+        sleep(1);
+
+    }
+
+    return PROCESS_RESULT_SUCCESS;
+
+}
+
+
+int IcmpRecv(int soc, u_int8_t *raw, int raw_len
+            , struct ether_header *eh, struct ip *ip
+            , u_int8_t *data, int len) {
+
+    struct icmp     *icmp;
+    u_int16_t       sum;
+    int             icmpSize;
+    u_int8_t        *ptr = data;
+
+    icmpSize = len;
+    icmp    = (struct icmp *)ptr;
+    ptr     += ECHO_HDR_SIZE;
+    len     -= ECHO_HDR_SIZE;
+
+    sum = checksum((u_int8_t *)icmp, icmpSize);
+
+    if (sum != 0 && sum != 0xFFFF) {
+        printf("bad icmp checksum(%x,%x)\n",sum,icmp->icmp_cksum);
+        return PROCESS_RESULT_ERROR;
+    }
+
+    if (isTargetIPAddr(&ip->ip_dst)) {
+
+        printf("--- recv ---[\n");
+        print_ether_header(eh);
+        print_ip(ip);
+        print_icmp(icmp);
+        printf("]\n");
+
+        if (icmp->icmp_type == ICMP_ECHO) {
+
+            IcmpSendEchoReply(soc, ip, icmp, ptr, len, Param.IpTTL);
+
+        } else if (icmp->icmp_type == ICMP_ECHOREPLY) {
+
+            PingCheckReply(ip, icmp);
+
+        }
+
+    }
+
+    return PROCESS_RESULT_SUCCESS;
+
+}
+
+
+int PingCheckReply(struct ip *ip, struct icmp *icmp) {
+
+    char    buf1[80];
+
+    if (ntohs(icmp->icmp_id)==getpid()) {
+
+        int seqNo = ntohs(icmp->icmp_seq);
+
+        if (seqNo > 0 && seqNo <= PING_SEND_NO) {
+
+            struct timeval  tv;
+            gettimeofday(&tv,NULL);
+            int sec     = tv.tv_sec - PingData[seqNo-1].sendTime.tv_sec;
+            int usec    = tv.tv_usec - PingData[seqNo-1].sendTime.tv_usec;
+
+            if (usec<0) {
+                sec--;
+                usec = 10000 - usec;
+            }
+
+            printf("%d bytes from %s:icmp_seq=%d ttl=%d time %d.%03d ms\n",
+                    ntohs(ip->ip_len),
+                    inet_ntop(AF_INET, &ip->ip_src, buf1, sizeof(buf1)),
+                    ntohs(icmp->icmp_seq),
+                    ip->ip_ttl,
+                    sec,
+                    usec);
+        }
+    }
+
+    return PROCESS_RESULT_SUCCESS;
+}
