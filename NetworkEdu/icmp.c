@@ -16,7 +16,6 @@
 #include "ip.h"
 #include "icmp.h"
 #include "param.h"
-#include "Common.h"
 
 extern PARAM    Param;
 
@@ -75,7 +74,7 @@ int print_icmp(struct icmp *icmp) {
 
     printf("icmp(end)------------------------------------------------------------------------\n");
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -112,7 +111,7 @@ int IcmpSendEchoReply(int soc, struct ip *r_ip, struct icmp *r_icmp
 
     printf("]\n");
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -152,7 +151,7 @@ int IcmpSendEcho(int soc, struct in_addr *daddr, int seqNo, int size) {
 
     gettimeofday(&PingData[seqNo-1].sendTime, NULL);
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -168,7 +167,7 @@ int PingSend(int soc, struct in_addr *daddr, int size) {
 
     }
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -191,7 +190,7 @@ int IcmpRecv(int soc, u_int8_t *raw, int raw_len
 
     if (sum != 0 && sum != 0xFFFF) {
         printf("bad icmp checksum(%x,%x)\n",sum,icmp->icmp_cksum);
-        return PROCESS_RESULT_ERROR;
+        return -1;
     }
 
     if (isTargetIPAddr(&ip->ip_dst)) {
@@ -214,7 +213,7 @@ int IcmpRecv(int soc, u_int8_t *raw, int raw_len
 
     }
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -249,5 +248,5 @@ int PingCheckReply(struct ip *ip, struct icmp *icmp) {
         }
     }
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 }

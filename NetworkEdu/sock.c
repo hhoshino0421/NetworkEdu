@@ -18,7 +18,6 @@
 #include <arpa/inet.h>
 #include "sock.h"
 #include "param.h"
-#include "Common.h"
 
 u_int16_t checksum(u_int8_t *data, int len) {
 
@@ -134,7 +133,7 @@ int GetMacAddress(char *device, u_int8_t *hwaddr) {
     if ((soc = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
 
         perror("GetMacAdress():socket");
-        return PROCESS_RESULT_ERROR;
+        return -1;
 
     }
 
@@ -144,7 +143,7 @@ int GetMacAddress(char *device, u_int8_t *hwaddr) {
 
         perror("GetMacAdress():hwaddr");
         close(soc);
-        return PROCESS_RESULT_ERROR;
+        return -1;
 
     } else {
 
@@ -167,7 +166,7 @@ int DummyWait(int ms) {
 
     nanosleep(&ts,NULL);
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -180,7 +179,7 @@ int init_socket(char *device) {
     if ((soc == socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL))) < 0) {
 
         perror("socket");
-        return PROCESS_RESULT_ERROR;
+        return -1;
 
     }
 
@@ -190,7 +189,7 @@ int init_socket(char *device) {
 
         perror("ioctl");
         close(soc);
-        return  PROCESS_RESULT_ERROR;
+        return  -1;
 
     }
 
@@ -202,7 +201,7 @@ int init_socket(char *device) {
 
         perror("bind");
         close(soc);
-        return PROCESS_RESULT_ERROR;
+        return -1;
 
     }
 
@@ -210,7 +209,7 @@ int init_socket(char *device) {
 
         perror("ioctl");
         close(soc);
-        return PROCESS_RESULT_ERROR;
+        return -1;
 
     }
 
@@ -221,7 +220,7 @@ int init_socket(char *device) {
         if (ioctl(soc,SIOCSIFFLAGS,&if_req) < 0) {
             perror("ioctl");
             close(soc);
-            return PROCESS_RESULT_ERROR;
+            return -1;
         }
 
     }

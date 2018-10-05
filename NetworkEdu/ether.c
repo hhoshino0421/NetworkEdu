@@ -23,7 +23,6 @@
 #include "ip.h"
 #include "icmp.h"
 #include "param.h"
-#include "Common.h"
 
 
 extern PARAM    param;
@@ -54,7 +53,7 @@ int my_ether_aton(char *str, u_int8_t *mac) {
 
         if (ptr == NULL) {
             free(tmp);
-            return PROCESS_RESULT_ERROR;
+            return -1;
         }
 
         mac[c] = strtol(ptr, NULL, 16);
@@ -63,7 +62,7 @@ int my_ether_aton(char *str, u_int8_t *mac) {
 
     free(tmp);
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -114,7 +113,7 @@ int print_hex(u_int8_t *data, int size) {
 
     }
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -169,11 +168,11 @@ int EthersSend(int soc, u_int8_t smac[6], u_int8_t dmac[6], u_int16_t type, u_in
 
     if (len > ETHERMTU) {
         printf("EtherSend:data too long:%d\n", len);
-        return PROCESS_RESULT_ERROR;
+        return -1;
     }
 
     ptr = sbuf;
-    eh = (struct bether_header *)ptr;
+    eh = (struct ether_header *)ptr;
     memset(eh, 0, sizeof(struct ether_header));
     memcpy(eh->ether_dhost, dmac, 6);
     memcpy(eh->ether_shost, smac, 6);
@@ -194,7 +193,7 @@ int EthersSend(int soc, u_int8_t smac[6], u_int8_t dmac[6], u_int16_t type, u_in
     write(soc, sbuf, ptr-sbuf);
     print_ether_header(eh);
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -209,15 +208,15 @@ int EtherRecv(int soc, u_int8_t *in_ptr, int in_len) {
     len -= sizeof(struct ether_header);
 
     if (memcmp(eh->ether_dhost, BCastMac, 6) != 0 && memcmp(eh->ether_dhost, param.vmac, 6) != 0) {
-        return PROCESS_RESULT_ERROR;
+        return -1;
     }
 
     if (ntohs(eh->ether_type) == ETHERTYPE_ARP) {
-        ArpRecv(soc, ptr, len);
+        ArpRecv(soc, eh, ptr, len);
     } else if (ntohs(eh->ether_type) == ETHERTYPE_IP) {
         IpRecv(soc, in_ptr, in_len, eh, ptr, len);
     }
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }

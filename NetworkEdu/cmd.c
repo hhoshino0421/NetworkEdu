@@ -21,7 +21,6 @@
 #include "icmp.h"
 #include "param.h"
 #include "cmd.h"
-#include "Common.h"
 
 extern int      DeviceSoc;
 
@@ -33,19 +32,19 @@ int DoCmdArp(char **cmdline) {
 
     if ((ptr=strtok_r(NULL,"\r\n", cmdline)) == NULL) {
         printf("DoCmdArp:no arg\n");
-        return PROCESS_RESULT_ERROR;
+        return -1;
     }
 
     if (strcmp(ptr,"-a") == 0) {
 
         ArpShowTable();
-        return PROCESS_RESULT_SUCCESS;
+        return 0;
 
     } else if (strcmp(ptr,"-d") == 0) {
 
         if ((ptr = strtok_r(NULL, "\r\n", cmdline)) == NULL){
             printf("DoCmdArp:-d no arg\n");
-            return PROCESS_RESULT_ERROR;
+            return -1;
         }
 
         struct in_addr  addr;
@@ -57,12 +56,12 @@ int DoCmdArp(char **cmdline) {
             printf("not exists\n");
         }
 
-        return PROCESS_RESULT_SUCCESS;
+        return 0;
 
     } else {
 
         printf("DocmdArp:[%s] unknown \n", ptr);
-        return PROCESS_RESULT_ERROR;
+        return -1;
     }
 
 }
@@ -76,7 +75,7 @@ int DoCmdPing(char **cmdline) {
 
     if ((ptr == strtok_r(NULL, "\r\n", cmdline)) == NULL) {
         printf("DoCmdPing:no arg\n");
-        return PROCESS_RESULT_ERROR;
+        return -1;
     }
 
     inet_aton(ptr, &daddr);
@@ -89,7 +88,7 @@ int DoCmdPing(char **cmdline) {
 
     PingSend(DeviceSoc,&daddr,size);
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -105,7 +104,7 @@ int DoCmdIfconfig(char **cmdline) {
     printf("gateway=%s\n", inet_ntop(AF_INET, &Param.gateway, buf1, sizeof(buf1)));
     printf("IpTTL=%d,MTU=%d\n", Param.IpTTL, Param.MTU);
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -114,7 +113,7 @@ int DoCmdEnd(char **cmdline) {
 
     kill(getpid(), SIGTERM);
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -134,34 +133,34 @@ int DoCmd(char *cmd) {
         printf("end : end program\n");
         printf("-------------------------------------------------------------------------\n");
 
-        return PROCESS_RESULT_ERROR;
+        return -1;
 
     }
 
     if (strcmp(ptr,"arp") == 0) {
 
         DoCmdArp(&saveptr);
-        return PROCESS_RESULT_SUCCESS;
+        return 0;
 
     } else if (strcmp(ptr,"ping") == 0) {
 
         DoCmdPing(&saveptr);
-        return PROCESS_RESULT_SUCCESS;
+        return 0;
 
     } else if (strcmp(ptr,"ifconfig") == 0) {
 
         DoCmdIfconfig(&saveptr);
-        return PROCESS_RESULT_SUCCESS;
+        return 0;
 
     } else if (strcmp(ptr,"end") == 0) {
 
         DoCmdEnd(&saveptr);
-        return PROCESS_RESULT_SUCCESS;
+        return 0;
 
     } else {
 
         printf("DoCmd:unknown cmd : %s", ptr);
-        return PROCESS_RESULT_ERROR;
+        return -1;
     }
 
 }

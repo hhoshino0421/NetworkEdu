@@ -20,7 +20,6 @@
 #include "ip.h"
 #include "icmp.h"
 #include "param.h"
-#include "Common.h"
 
 extern PARAM    Param;
 
@@ -96,7 +95,7 @@ int IpRecvBufInit() {
         IpRecvBuf[i].id = -1;
     }
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -190,7 +189,7 @@ int IpRecv(int soc, u_int8_t *raw, int raw_len, struct ether_header *eh, u_int8_
     if (len < (int)sizeof(struct ip)) {
 
         printf("len(%d)<sizeof(struct ip)\n", len);
-        return  PROCESS_RESULT_ERROR;
+        return  -1;
 
     }
 
@@ -203,7 +202,7 @@ int IpRecv(int soc, u_int8_t *raw, int raw_len, struct ether_header *eh, u_int8_
 
         if (optionLen >= 1500) {
             printf("IP optionLen(%d) too big\n", optionLen);
-            return PROCESS_RESULT_ERROR;
+            return -1;
         }
 
         memcpy(option, ptr, optionLen);
@@ -219,7 +218,7 @@ int IpRecv(int soc, u_int8_t *raw, int raw_len, struct ether_header *eh, u_int8_
 
     if (sum != 0 && sum != 0xFFFF) {
         printf("bad ip checksum\n");
-        return PROCESS_RESULT_ERROR;
+        return -1;
     }
 
     plen = ntohs(ip->ip_len) - ip->ip_hl * 4;
@@ -240,7 +239,7 @@ int IpRecv(int soc, u_int8_t *raw, int raw_len, struct ether_header *eh, u_int8_
         IpRecvBufDel(ntohs(ip->ip_id));
     }
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -257,7 +256,7 @@ int IpSendLink(int soc,u_int8_t smac[6],u_int8_t dmac[6]
 
     if (dontFlagment && len > Param.MTU - sizeof(struct ip)) {
         printf("IpSend:data too long:%d\n", len);
-        return PROCESS_RESULT_ERROR;
+        return -1;
     }
 
     id = random();
@@ -314,7 +313,7 @@ int IpSendLink(int soc,u_int8_t smac[6],u_int8_t dmac[6]
 
     }
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 

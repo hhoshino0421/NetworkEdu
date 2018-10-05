@@ -15,7 +15,7 @@
 #include "ether.h"
 #include "arp.h"
 #include "param.h"
-#include "Common.h"
+
 
 extern      PARAM    Param;
 
@@ -155,7 +155,7 @@ int ArpAddTable(u_int8_t mac[6], struct in_addr *ipaddr) {
     pthread_rwlock_wrlock(&ArpTableLock);
 
     freeNo      = -1;
-    oldestNo    = ULONG_MAX;
+    oldsetTime  = ULONG_MAX;
     oldestNo    = -1;
 
     for (i = 0;i < ARP_TABLE_NO; i++) {
@@ -379,7 +379,7 @@ int ArpSend(int soc,                u_int16_t   op
 
     printf("]\n");
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -397,7 +397,7 @@ int ArpSendRequestGratuitous(int soc, struct in_addr *targetIp) {
     ArpSend(soc, ARPOP_REQUEST, Param.vmac, BCastMac
             , Param.vmac, AllZeroMac, saddr.c, daddr.c);
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -415,7 +415,7 @@ int ArpSendRequest(int soc, struct in_addr *targetIp) {
     ArpSend(soc, ARPOP_REQUEST, Param.vmac, BCastMac
             , Param.vmac, AllZeroMac, saddr.c, daddr.c);
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -431,7 +431,8 @@ int ArpCheckGArp(int soc) {
                 inet_ntop(AF_INET, &Param.vip, buf1, sizeof(buf1))
                 , my_ether_ntoa_r(dmac, buf2));
 
-        return PROCESS_RESULT_SUCCESS;
+        return 0;
+
     }
 
     return (1);
@@ -497,6 +498,6 @@ int ArpRecv(int soc, struct ether_header *eh, u_int8_t *data, int len) {
 
     }
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }

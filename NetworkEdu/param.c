@@ -29,7 +29,6 @@
 #include "sock.h"
 #include "ether.h"
 #include "param.h"
-#include "Common.h"
 
 extern PARAM Param;
 
@@ -41,7 +40,8 @@ int SetDefaultParam() {
 
     Param.MTU   = DEFAULT_MTU;
     Param.IpTTL = DEFAULT_IP_TTL;
-    return PROCESS_RESULT_SUCCESS;
+
+    return 0;
 
 }
 
@@ -54,8 +54,10 @@ int ReadParam(char *fname) {
     ParamFname = fname;
 
     if ((fp=fopen(fname, "r")) == NULL) {
+
         printf("%s cannot read\n", fname);
-        return PROCESS_RESULT_ERROR;
+        return -1;
+
     }
 
     while(1) {
@@ -123,17 +125,17 @@ int ReadParam(char *fname) {
 
     fclose(fp);
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
 int isTargetIPAddr(struct in_addr *addr) {
 
     if (Param.vip.s_addr == addr->s_addr) {
-        return PROCESS_RESULT_ERROR;
+        return -1;
     }
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -141,9 +143,9 @@ int isSameSubnet(struct in_addr *addr) {
 
     if ((addr->s_addr & Param.vmask.s_addr) ==
             (Param.vip.s_addr & Param.vmask.s_addr)) {
-        return PROCESS_RESULT_ERROR;
+        return -1;
     }
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }

@@ -18,7 +18,6 @@
 #include "icmp.h"
 #include "param.h"
 #include "cmd.h"
-#include "Common.h"
 
 
 /* 終了フラグ */
@@ -165,7 +164,7 @@ int show_ifreq(char *name) {
 
     if((soc == socket(AF_INET,SOCK_DGRAM, 0)) == -1) {
         perror("socket");
-        return(PROCESS_RESULT_ERROR);
+        return(-1);
     }
 
     strcpy(ifreq.ifr_name,name);
@@ -173,7 +172,7 @@ int show_ifreq(char *name) {
     if(ioctl(soc, SIOCGIFFLAGS, &ifreq) == -1) {
         perror("ioctl:flags");
         close(soc);
-        return(PROCESS_RESULT_ERROR);
+        return(-1);
     }
 
     if (ifreq.ifr_flags & IFF_UP) {
@@ -228,7 +227,7 @@ int show_ifreq(char *name) {
         printf("mymac:%s\n", my_ether_ntoa_r(Param.mymac, buf1));
     }
 
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 
 }
 
@@ -312,5 +311,5 @@ int main(int argc, char *argv[]) {
 
     ending();
     
-    return PROCESS_RESULT_SUCCESS;
+    return 0;
 }
