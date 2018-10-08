@@ -30,19 +30,20 @@ int DoCmdArp(char **cmdline) {
 
     char *ptr;
 
-    if ((ptr=strtok_r(NULL,"\r\n", cmdline)) == NULL) {
+    if ((ptr = strtok_r(NULL, "\n", cmdline)) == NULL) {
         printf("DoCmdArp:no arg\n");
         return -1;
     }
 
-    if (strcmp(ptr,"-a") == 0) {
+    if (strcmp(ptr, "-a") == 0) {
 
-        ArpShowTable();
+        //ArpShowTable();
+        printf("apr -a not coding.\n");
         return 0;
 
-    } else if (strcmp(ptr,"-d") == 0) {
+    } else if (strcmp(ptr, "-d") == 0) {
 
-        if ((ptr = strtok_r(NULL, "\r\n", cmdline)) == NULL){
+        if ((ptr = strtok_r(NULL, "\n", cmdline)) == NULL){
             printf("DoCmdArp:-d no arg\n");
             return -1;
         }
@@ -73,14 +74,14 @@ int DoCmdPing(char **cmdline) {
     struct  in_addr     daddr;
     int                 size;
 
-    if ((ptr == strtok_r(NULL, "\r\n", cmdline)) == NULL) {
+    if ((ptr = strtok_r(NULL, "\n", cmdline)) == NULL) {
         printf("DoCmdPing:no arg\n");
         return -1;
     }
 
     inet_aton(ptr, &daddr);
 
-    if ((ptr = strtok_r(NULL, "\r\n", cmdline)) == NULL) {
+    if ((ptr = strtok_r(NULL, "\n", cmdline)) == NULL) {
         size = DEFAULT_PING_SIZE;
     } else {
         size = atoi(ptr);
@@ -122,7 +123,7 @@ int DoCmd(char *cmd) {
 
     char    *ptr, *saveptr;
 
-    if ((ptr = strtok_r(cmd, "\r\n", &saveptr)) == NULL) {
+    if ((ptr = strtok_r(cmd, "\n", &saveptr)) == NULL) {
 
         printf("DoCmd:no cmd\n");
         printf("-------------------------------------------------------------------------\n");
