@@ -176,7 +176,7 @@ int init_socket(char *device) {
     struct sockaddr_ll  sa;
     int                 soc;
 
-    if ((soc == socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL))) < 0) {
+    if ((soc = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL))) < 0) {
 
         perror("socket");
         return -1;
