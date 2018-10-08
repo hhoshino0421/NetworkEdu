@@ -29,8 +29,11 @@ PARAM   Param;
 
 const int BUFFER_SIZE_1     = 2048;
 const int BUFFER_SIZE_1_1   = 80;
-const int STACK_SIZE        = 102400;
+//const int STACK_SIZE        = 102400;
 const int POOL_COUNT_MAX    = 1000;
+
+//#define STACK_SIZE  (102400)
+size_t STACK_SIZE   = 102400;
 
 
 void *MyEthThread(void *arg) {

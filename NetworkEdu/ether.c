@@ -25,7 +25,7 @@
 #include "param.h"
 
 
-extern PARAM    param;
+extern PARAM    Param;
 
 u_int8_t    AllZeroMac[6]   = {0,0,0,0,0,0};
 u_int8_t    BCastMac[6]     = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
@@ -160,7 +160,7 @@ void print_ether_header(struct ether_header *eh) {
 
 }
 
-int EthersSend(int soc, u_int8_t smac[6], u_int8_t dmac[6], u_int16_t type, u_int8_t *data, int len) {
+int EtherSend(int soc, u_int8_t smac[6], u_int8_t dmac[6], u_int16_t type, u_int8_t *data, int len) {
 
     struct ether_header     *eh;
     u_int8_t                *ptr, sbuf[sizeof(struct ether_header) + ETHERMTU];
@@ -207,7 +207,7 @@ int EtherRecv(int soc, u_int8_t *in_ptr, int in_len) {
     ptr += sizeof(struct ether_header);
     len -= sizeof(struct ether_header);
 
-    if (memcmp(eh->ether_dhost, BCastMac, 6) != 0 && memcmp(eh->ether_dhost, param.vmac, 6) != 0) {
+    if (memcmp(eh->ether_dhost, BCastMac, 6) != 0 && memcmp(eh->ether_dhost, Param.vmac, 6) != 0) {
         return -1;
     }
 
