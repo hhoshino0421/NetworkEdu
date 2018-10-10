@@ -138,12 +138,21 @@ int DoCmd(char *cmd) {
 
     }
 
-    if (strcmp(ptr,"arp") == 0) {
+//    if (strcmp(ptr,"arp") == 0) {
+//
+//        DoCmdArp(&saveptr);
+//        return 0;
+//        } else if (strcmp(ptr,"ping") == 0) {
+//
+//        DoCmdPing(&saveptr);
+//        return 0;
+
+    if ((strncmp(ptr, "arp -a", 6) == 0 || strncmp(ptr,"arp -d", 6) == 0)) {
 
         DoCmdArp(&saveptr);
         return 0;
 
-    } else if (strcmp(ptr,"ping") == 0) {
+    } else if (strncmp(ptr,"ping", 4) == 0) {
 
         DoCmdPing(&saveptr);
         return 0;
