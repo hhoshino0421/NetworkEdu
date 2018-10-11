@@ -30,20 +30,25 @@ int DoCmdArp(char **cmdline) {
 
     char *ptr;
 
-    if ((ptr = strtok_r(NULL, "\n", cmdline)) == NULL) {
+    if ((ptr = strtok_r(NULL, " ", cmdline)) == NULL) {
+        printf("DoCmdArp:no arg\n");
+        return -1;
+    }
+
+    if ((ptr = strtok_r(NULL, " ", cmdline)) == NULL) {
         printf("DoCmdArp:no arg\n");
         return -1;
     }
 
     if (strcmp(ptr, "-a") == 0) {
 
-        //ArpShowTable();
-        printf("apr -a not coding.\n");
+        ArpShowTable();
+        //printf("apr -a not coding.\n");
         return 0;
 
     } else if (strcmp(ptr, "-d") == 0) {
 
-        if ((ptr = strtok_r(NULL, "\n", cmdline)) == NULL){
+        if ((ptr = strtok_r(NULL, " ", cmdline)) == NULL){
             printf("DoCmdArp:-d no arg\n");
             return -1;
         }
@@ -74,14 +79,19 @@ int DoCmdPing(char **cmdline) {
     struct  in_addr     daddr;
     int                 size;
 
-    if ((ptr = strtok_r(NULL, "\n", cmdline)) == NULL) {
+    if ((ptr = strtok_r(NULL, " ", cmdline)) == NULL) {
+        printf("DoCmdPing:no arg\n");
+        return -1;
+    }
+
+    if ((ptr = strtok_r(NULL, " ", cmdline)) == NULL) {
         printf("DoCmdPing:no arg\n");
         return -1;
     }
 
     inet_aton(ptr, &daddr);
 
-    if ((ptr = strtok_r(NULL, "\n", cmdline)) == NULL) {
+    if ((ptr = strtok_r(NULL, " ", cmdline)) == NULL) {
         size = DEFAULT_PING_SIZE;
     } else {
         size = atoi(ptr);
@@ -138,23 +148,15 @@ int DoCmd(char *cmd) {
 
     }
 
-//    if (strcmp(ptr,"arp") == 0) {
-//
-//        DoCmdArp(&saveptr);
-//        return 0;
-//        } else if (strcmp(ptr,"ping") == 0) {
-//
-//        DoCmdPing(&saveptr);
-//        return 0;
 
     if ((strncmp(ptr, "arp -a", 6) == 0 || strncmp(ptr,"arp -d", 6) == 0)) {
 
-        DoCmdArp(&saveptr);
+        DoCmdArp(&ptr);
         return 0;
 
     } else if (strncmp(ptr,"ping", 4) == 0) {
 
-        DoCmdPing(&saveptr);
+        DoCmdPing(&ptr);
         return 0;
 
     } else if (strcmp(ptr,"ifconfig") == 0) {
