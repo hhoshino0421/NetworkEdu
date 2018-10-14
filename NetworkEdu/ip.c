@@ -21,6 +21,9 @@
 #include "icmp.h"
 #include "param.h"
 
+#include <netinet/udp.h>
+#include "upd.h"
+
 extern PARAM    Param;
 
 #define     IP_RECV_BUF_NO  (16)
@@ -233,6 +236,10 @@ int IpRecv(int soc, u_int8_t *raw, int raw_len, struct ether_header *eh, u_int8_
         if (ip->ip_p == IPPROTO_ICMP) {
 
             IcmpRecv(soc, raw, raw_len, eh, ip, IpRecvBuf[no].data, IpRecvBuf[no].len);
+
+        } else if (ip->ip_p == IPPROTO_UDP) {
+
+            udpRecv(soc, eh, ip, IpRecvBuf[no], data, IpRecvBuf[no].len);
 
         }
 

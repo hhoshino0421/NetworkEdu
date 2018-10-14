@@ -13,4 +13,6 @@ int DoCmdNetstat(char **cmdline);
 int DoCmdEnd(char **cmdline);
 int DoCmd(char *cmd);
 
+int DoCmdUpd(char **cmdline);
+
 #endif //NETWORKEDU_CMD_H

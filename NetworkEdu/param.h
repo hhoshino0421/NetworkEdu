@@ -26,6 +26,12 @@ typedef struct {
     int             IpTTL;
     int             MTU;
     struct in_addr  gateway;
+
+    u_int32_t       DhcpRequestLeaseTime;
+    u_int32_t       DhcpLeaseTime;
+    time_t          DhcpStartTime;
+    struct in_addr  DhcpServer;
+
 } PARAM;
 
 /* 関数プロトタイプ宣言 */

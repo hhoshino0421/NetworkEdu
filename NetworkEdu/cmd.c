@@ -22,6 +22,9 @@
 #include "param.h"
 #include "cmd.h"
 
+#include <netinet/udp.h>
+#include "upd.h"
+
 extern int      DeviceSoc;
 
 extern PARAM    Param;
@@ -113,6 +116,16 @@ int DoCmdIfconfig(char **cmdline) {
     printf("vip=%s\n", inet_ntop(AF_INET, &Param.vip, buf1, sizeof(buf1)));
     printf("vmac=%s\n", inet_ntop(AF_INET, &Param.vmask, buf1, sizeof(buf1)));
     printf("gateway=%s\n", inet_ntop(AF_INET, &Param.gateway, buf1, sizeof(buf1)));
+
+    if (Param.DhcpStartTime==0) {
+        printf("Static\n");
+    } else {
+        printf("DHCP request lease time=%d\n", Param.DhcpRequestLeaseTime);
+        printf("DHCP server=%s\n", inet_ntop(AF_INET, &Param.DhcpServer, buf1, sizeof(buf1)));
+        printf("DHCP start time:%s", ctime(&Param.DhcpStartTime));
+        printf("DHCP lease time:%s", Param.DhcpLeaseTime);
+    }
+
     printf("IpTTL=%d,MTU=%d\n", Param.IpTTL, Param.MTU);
 
     return 0;
@@ -123,6 +136,98 @@ int DoCmdIfconfig(char **cmdline) {
 int DoCmdEnd(char **cmdline) {
 
     kill(getpid(), SIGTERM);
+
+    return 0;
+
+}
+
+
+int DoCmdNetstat(char **cmdline) {
+
+    printf("----------------------------------------------\n");
+    printf("proto:no:port:data\n");
+
+    UdpShowTable();
+
+    return 0;
+
+}
+
+
+int DoCmdUpd(char **cmdline) {
+
+    char        *ptr;
+    u_int16_t   port;
+    int         no, ret;
+
+    if ((ptr=strtok_r(NULL, "\n", cmdline)) == NULL) {
+        printf("DoCmdUdp:no arg\n");
+        return -1;
+    }
+
+    if (strcmp(ptr, "open") == 0) {
+
+        if ((ptr = strtok_r(NULL, "\n", cmdline)) == NULL) {
+            no = UpdSocket(0);
+        } else {
+            port = atoi(ptr);
+            no = UpdSocket(port);
+        }
+
+        printf("DoCmdUpd:no=%d\n", no);
+
+    } else if (strcmp(ptr, "close") == 0) {
+
+        if ((ptr = strtok_r(NULL, "\n", cmdline)) == NULL) {
+            printf("DoCmdUpd:close:no arg\n");
+            return -1;
+        }
+
+        port = atoi(ptr);
+        ret = UpdSocketClose(port);
+        printf("DoCmdUpd:ret=%d",ret);
+
+    } else if (strcmp(ptr,"send") == 0) {
+
+        char            *p_addr, *p_port;
+        struct in_addr  daddr;
+        u_int16_t       sport, dport;
+
+        if((ptr = strtok_r(NULL, "\n", cmdline)) == NULL) {
+            printf("DoCmdUpd:send no arg\n");
+            return -1;
+        }
+
+        sport = atoi(ptr);
+
+        if ((p_addr = strtok_r(NULL, ":\n", cmdline)) == NULL) {
+            printf("DoCmdUpd: send %u no arg\n",sport);
+            return -1;
+        }
+
+        if ((p_port = strtok_r(NULL, "\n", cmdline)) == NULL) {
+            printf("DoCmdUpd:send %u %s:no arg\n", sport, p_addr);
+            return -1;
+        }
+
+        inet_aton(p_addr, &daddr);
+        dport = atoi(p_port);
+
+        if ((ptr = strtok_r(NULL, "\n", cmdline)) == NULL) {
+            printf("DoCmdUpd:;send%u %s:%d no arg\n", sport, p_addr, dport);
+            return -1;
+        }
+
+        MakeString(ptr);
+
+        UpdSend(DeviceSoc, &Param.vip, &daddr, sport, dport, 0, (u_int8_t *)ptr, strlen(ptr));
+
+    } else {
+
+        printf("DoCmdUpd:[%s] unknown\n", ptr);
+        return -1;
+
+    }
 
     return 0;
 
@@ -141,6 +246,12 @@ int DoCmd(char *cmd) {
         printf("arp -d addr : del arp table\n");
         printf("ping addr [size] : send ping\n");
         printf("ifconfig : show interface configuration\n");
+
+        printf("netstat : show active ports\n");
+        printf("upd open port : open upd-recv port\n");
+        printf("upd close port : close upd-recv port\n");
+        printf("upd send sport daddr:dport data : send upd\n");
+
         printf("end : end program\n");
         printf("-------------------------------------------------------------------------\n");
 
@@ -164,6 +275,14 @@ int DoCmd(char *cmd) {
         DoCmdIfconfig(&saveptr);
         return 0;
 
+    } else if (strcmp(ptr,"netstat") == 0) {
+
+        DoCmdNetstat(&saveptr);
+
+    } else if (strcmp(ptr,"upd") == 0) {
+
+        DoCmdUpd(&ptr);
+
     } else if (strcmp(ptr,"end") == 0) {
 
         DoCmdEnd(&saveptr);
@@ -176,3 +295,65 @@ int DoCmd(char *cmd) {
     }
 
 }
+
+
+int MakeString(char *data) {
+
+    char *tmp = strdup(data);
+    char *wp, *rp;
+
+    for (wp = tmp, rp=data; *rp != '\0'; rp++) {
+
+        if (*rp == '\\' && *(rp + 1) != '\0') {
+            rp++;
+
+            switch (*rp) {
+
+                case 'n': {
+                    *wp = '\n';
+                    wp++;
+                    break;
+                }
+
+                case 'r': {
+                    *wp = '\r';
+                    wp++;
+                    break;
+                }
+
+                case 't': {
+                    *wp = '\t';
+                    wp++;
+                    break;
+                }
+
+                case '\\': {
+                    *wp = '\\';
+                    wp++;
+                    break;
+                }
+                default: {
+                    *wp = '\\';
+                    wp++;
+                    break;
+                }
+
+            }
+
+        } else {
+
+            *wp = *rp;
+            wp++;
+
+        }
+
+    }
+
+    *wp = '\0';
+    strcpy(data, tmp);
+    free(tmp);
+
+    return 0;
+
+}
+

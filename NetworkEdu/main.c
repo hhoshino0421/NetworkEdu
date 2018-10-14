@@ -18,6 +18,10 @@
 #include "icmp.h"
 #include "param.h"
 #include "cmd.h"
+//UDP Add
+#include <netinet/udp.h>
+#include "upd.h"
+#include "dhcp.h"
 
 
 /* 終了フラグ */
@@ -135,6 +139,10 @@ int ending() {
     struct ifreq        if_req;
 
     printf("ending\n");
+
+    if(Param.DhcpServer.s_addr!=0) {
+        DhcpSendRelease(DeviceSoc);
+    }
 
     if (DeviceSoc != -1) {
 
@@ -284,6 +292,8 @@ int main(int argc, char *argv[]) {
     printf("vmask=%s\n", inet_ntop(AF_INET, &Param.vmask, buf1, sizeof(buf1)));
     printf("gatreway=%s\n", inet_ntop(AF_INET, &Param.gateway, buf1, sizeof(buf1)));
 
+    printf("DHCP request lease\n", Param.DhcpRequestLeaseTime);
+
     signal(SIGINT, sig_term);
     signal(SIGTERM, sig_term);
     signal(SIGQUIT, sig_term);
@@ -303,6 +313,28 @@ int main(int argc, char *argv[]) {
         printf("pthread_create(StdInThread):error\n");
     }
 
+    if (Param.vip.s_addr == 0) {
+
+        int count = 0;
+
+        do {
+
+            count++;
+
+            if (count > 5) {
+
+                printf("DHCP fail\n");
+                return -1;
+
+            }
+
+            DhcpSendDiscover(DeviceSoc);
+            sleep(1);
+
+        } while(Param.vip.s_addr == 0);
+
+    }
+
     if (ArpCheckGArp(DeviceSoc) == 0) {
         printf("GArp check fail\n");
         return(-1);
@@ -310,6 +342,11 @@ int main(int argc, char *argv[]) {
 
     while (EndFlag == 0) {
         sleep(1);
+
+        if (Param.DhcpStartTime!=0) {
+            Dhcpcheck(DeviceSoc);
+        }
+
     }
 
     ending();
