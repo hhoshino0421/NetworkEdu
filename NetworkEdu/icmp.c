@@ -259,8 +259,8 @@ int IcmpSendDestinationUnreachable(int soc, struct in_addr *daddr, struct ip *ip
     struct      icmp    *icmp;
 
 
-    ptr = sbuf;
-    icmp = (struct icmp*)ptr;
+    ptr     = sbuf;
+    icmp    = (struct icmp*)ptr;
     memset(icmp, 0, sizeof(struct icmp));
     icmp->icmp_type     = ICMP_DEST_UNREACH;
     icmp->icmp_code     = ICMP_PORT_UNREACH;
@@ -278,7 +278,7 @@ int IcmpSendDestinationUnreachable(int soc, struct in_addr *daddr, struct ip *ip
         ptr += len;
     }
 
-    icmp->icmp_cksum=checksum((u_int8_t *)sbuf,ptr-sbuf);
+    icmp->icmp_cksum=checksum((u_int8_t *)sbuf, ptr-sbuf);
 
     printf("=== ICMP Destination Unreachable ===[\n");
 

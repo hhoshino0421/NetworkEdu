@@ -154,7 +154,7 @@ int DoCmdNetstat(char **cmdline) {
 }
 
 
-int DoCmdUpd(char **cmdline) {
+int DoCmdUdp(char **cmdline) {
 
     char        *ptr;
     u_int16_t   port;
@@ -248,9 +248,9 @@ int DoCmd(char *cmd) {
         printf("ifconfig : show interface configuration\n");
 
         printf("netstat : show active ports\n");
-        printf("upd open port : open upd-recv port\n");
-        printf("upd close port : close upd-recv port\n");
-        printf("upd send sport daddr:dport data : send upd\n");
+        printf("udp open port : open udp-recv port\n");
+        printf("udp close port : close udp-recv port\n");
+        printf("udp send sport daddr:dport data : send udp\n");
 
         printf("end : end program\n");
         printf("-------------------------------------------------------------------------\n");
@@ -279,9 +279,9 @@ int DoCmd(char *cmd) {
 
         DoCmdNetstat(&saveptr);
 
-    } else if (strcmp(ptr,"upd") == 0) {
+    } else if (strcmp(ptr,"udp") == 0) {
 
-        DoCmdUpd(&ptr);
+        DoCmdUdp(&ptr);
 
     } else if (strcmp(ptr,"end") == 0) {
 
