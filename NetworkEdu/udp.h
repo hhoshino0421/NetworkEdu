@@ -10,7 +10,7 @@
 int print_udp(struct udphdr *udp);
 u_int16_t UdpChecksum(struct in_addr *sassr, struct in_addr *daddr, u_int8_t proto, u_int8_t *daaata, int len);
 int UdpAddTable(u_int16_t port);
-int UdpSearchTbale(u_int16_t port);
+int UdpSearchTable(u_int16_t port);
 int UdpShowTable();
 u_int16_t UdpSearchFreePort();
 int UdpSocket(u_int16_t port);
