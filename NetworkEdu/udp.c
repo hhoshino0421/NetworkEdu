@@ -299,20 +299,34 @@ int UdpRecv(int soc, struct ether_header *eh, struct ip *ip,u_int8_t *data,int l
 
     udplen = len;
 
-    sum=UdpChecksum(&ip->ip_src,&ip->ip_dst,ip->ip_p,data,udplen);
+    sum = UdpChecksum(&ip->ip_src, &ip->ip_dst, ip->ip_p, data, udplen);
 
-    if (sum!=0&&sum!=0xFFFF) {
+    if (sum != 0 && sum != 0xFFFF) {
 
-        printf("UdpRecv:bad udp checksum(%x):udplen=%u\n",sum,udplen);
+        printf("UdpRecv:bad udp checksum(%x):udplen=%u\n", sum, udplen);
         return -1;
 
     }
 
-    udp=(struct udphdr *)ptr;
-    ptr+=sizeof(struct udphdr);
-    udplen-=sizeof(struct udphdr);
+    udp = (struct udphdr *)ptr;
+    ptr += sizeof(struct udphdr);
+    udplen -= sizeof(struct udphdr);
 
-    
+    if (ntohs(udp->dest) == DHCP_CLIENT_PORT) {
+        DhcpRecv(soc, ptr, udplen, eh, ip, udp);
+    } else {
+        if (UdpSearchTable(ntohs(udp->dest)) != -1) {
+            printf("--- recv ---[\n");
+            print_ether_header(eh);
+            print_ip(ip);
+            print_udp(udp);
+            print_hex(ptr, udplen);
+            printf("]\n");
+        } else {
+            IcmpSendDestinationUnreachable(soc, &ip->ip_src, ip,  data, len);
+        }
+    }
 
+    return 0;
 
 }
