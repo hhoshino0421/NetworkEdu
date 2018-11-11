@@ -35,7 +35,46 @@ struct dhcp_packet {
     char        sname[DHCP_SNAME_LEN];
     char        file[DHCP_FILE_LEN];
     u_int8_t    options[DHCP_OPTION_LEN];
-    
+
 };
+
+#define BOOTREQUEST         1
+#define BOOTREPLY           2
+
+#define HTYPE_ENTER         1
+#define HTYPE_IEEE802       6
+#define HTYPE_FDDI          8
+
+#define DHCP_OPTIONS_COOKIE "\143\202\123\143"
+
+#define DHCPDISCOVER        1
+#define DHCPOFFER           2
+#define DHCPREQUEST         3
+#define DHCPDECLINE         4
+#define DHCPACK             5
+#define DHCPNAK             6
+#define DHCPRELEASE         7
+#define DHCPINFORM          8
+
+#define OPTION_STR_MAX      64
+
+typedef struct {
+    int     no;
+    char    kind;
+    char    *data;
+    int     len;
+} OPTION;
+
+
+int print_dhcp(struct dhcp_packet *pa, int size);
+u_int8_t *dhcp_set_option(u_int8_t *ptr, int tag, int size, u_int8_t *buf);
+int dhcp_get_option(struct dhcp_packet *pa, int size, int opno, void *val);
+int MakeDhcpRequest(struct dhcp_packet *pa, u_int8_t mtype, struct in_addr *ciaddr, struct in_addr *req_ip, struct in_addr *server);
+int DhcpSendDiscover(int soc);
+int DhcpSendRequest(int soc, struct in_addr *yiaddr, struct in_addr *server);
+int DhcpSendRequestUni(int soc);
+int DhcpRecv(int soc, u_int8_t *data, int len, struct ether_header *eh, struct ip *ip, struct udphdr *udp);
+int DhcpCheck(int soc);
+
 
 #endif //NETWORKEDU_DHCP_H
