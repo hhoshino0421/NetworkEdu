@@ -26,7 +26,8 @@
 extern PARAM        Param;
 extern u_int8_t     BcastMac[6];
 
-int print_dhcp(struct dhcp_packet *pa,int size) {
+int print_dhcp(struct dhcp_packet *pa, int size) {
+
     int             i;
     char            cookie[4];
     u_int8_t        *ptr;
@@ -83,13 +84,16 @@ int print_dhcp(struct dhcp_packet *pa,int size) {
     }
 
     end = 0;
+
     while(ptr < (u_int8_t *)pa + size) {
+
         switch(*ptr) {
             case 0: {
                 printf("0:pad\n");
                 ptr++;
                 break;
             }
+
             case 1: {
                 printf("1:subnet mask:");
                 ptr++;
@@ -102,7 +106,7 @@ int print_dhcp(struct dhcp_packet *pa,int size) {
                 break;
             }
 
-
+            /* */
             case 61: {
                 printf("61:client-identifer:");
                 ptr++;
@@ -116,9 +120,11 @@ int print_dhcp(struct dhcp_packet *pa,int size) {
                     printf("%02X",(*ptr)&0xFF);
                     ptr++;
                     printf("\n");
-                    break;
+                    //break;
                 }
+                break;
             }
+
             default: {
 
                 if(*ptr >= 128 && *ptr <= 254) {
@@ -154,9 +160,10 @@ int print_dhcp(struct dhcp_packet *pa,int size) {
 
                         }
 
-                        break;
+                        //break;
                     }
 
+                    break;
 
                 }
             }
@@ -173,8 +180,8 @@ int print_dhcp(struct dhcp_packet *pa,int size) {
 
 }
 
-u_int8_t *dhcp_set_option(u_int8_t *ptr,int tag,int size,u_int8_t *buf) {
-    
+u_int8_t *dhcp_set_option(u_int8_t *ptr, int tag, int size, u_int8_t *buf) {
+
 }
 
 
