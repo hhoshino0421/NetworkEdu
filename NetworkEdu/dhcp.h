@@ -41,7 +41,7 @@ struct dhcp_packet {
 #define BOOTREQUEST         1
 #define BOOTREPLY           2
 
-#define HTYPE_ENTER         1
+#define HTYPE_ETHER         1
 #define HTYPE_IEEE802       6
 #define HTYPE_FDDI          8
 
